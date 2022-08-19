@@ -1,0 +1,50 @@
+<form class="row g-3">
+  <legend>Edit Company</legend>
+
+  <div class="col-md-6">
+    <label for="companyName" class="form-label mt-4"><i class="fa-solid fa-building"></i> New Company Name</label>
+    <input type="text" name="name" class="form-control" id="companyName" placeholder="Company Name"
+           [(ngModel)]="company.name">
+    <label style="color: red" *ngIf="errorName">{{errorName}}</label>
+  </div>
+
+  <div class="col-md-6">
+    <label for="exampleInputEmail1" class="form-label mt-4"><i class="fa-solid fa-at"></i> New Email address</label>
+    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"
+           [(ngModel)]="company.email">
+    <label style="color: red" *ngIf="errorEmail">{{errorEmail}}</label>
+  </div>
+
+  <div class="col-md-6">
+    <label for="companyAddress" class="form-label mt-4"><i class="fa-solid fa-map-location-dot"></i> New Company Address</label>
+    <input type="text" name="address" class="form-control" id="companyAddress" placeholder="Company Address"
+           [(ngModel)]="company.address">
+    <label style="color: red" *ngIf="errorAddress">{{errorAddress}}</label>
+  </div>
+
+  <div class="col-md-6">
+    <label for="companyWebsite" class="form-label mt-4"><i class="fa-brands fa-internet-explorer"></i> New Company Website</label>
+    <input type="text" name="website" class="form-control" id="companyWebsite" placeholder="Company Website"
+           [(ngModel)]="company.website">
+    <label style="color: red" *ngIf="errorWebsite">{{errorWebsite}}</label>
+  </div>
+
+  <div class="col-md-6">
+    <label for="companyPhone" class="form-label mt-4"><i class="fa-solid fa-phone"></i> New Company Phone</label>
+    <input type="text" name="phone" class="form-control" id="companyPhone" placeholder="Company Phone"
+           [(ngModel)]="company.phone">
+    <label style="color: red" *ngIf="errorPhone">{{errorPhone}}</label>
+  </div>
+
+  <div class="col-md-6">
+    <label for="companyDescription" class="form-label mt-4"><i class="fa-solid fa-align-justify"></i> New Company Description</label>
+    <textarea class="form-control" name="description" id="companyDescription" rows="3"
+              [(ngModel)]="company.description"></textarea>
+  </div>
+
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary m-2" (click)="update()">Update</button>
+    <a routerLink="/companies" class="btn btn-secondary" href="#" role="button">Back</a>
+
+  </div>
+</form>

@@ -1,0 +1,27 @@
+<h2>Company: {{company?.name}}</h2>
+<table id="example" class="table table-striped" style="width:100%">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>email</th>
+    <th>Address</th>
+    <th>Phone</th>
+    <th>Website</th>
+    <th>Description</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>{{companyId}}</td>
+    <td>{{company?.name}}</td>
+    <td>{{company?.email}}</td>
+    <td>{{company?.address}}</td>
+    <td>{{company?.phone}}</td>
+    <td>{{company?.website}}</td>
+    <td>{{company?.description}}</td>
+  </tr>
+</table>
+<a routerLink="/companies" class="btn btn-secondary" href="#" role="button">Back</a>
+
