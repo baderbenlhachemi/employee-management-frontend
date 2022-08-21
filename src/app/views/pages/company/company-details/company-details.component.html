@@ -1,27 +1,44 @@
-<h2>Company: {{company?.name}}</h2>
-<table id="example" class="table table-striped" style="width:100%">
-  <thead>
+<h2>Company Details</h2>
+<div class="container">
+  <div class="container text-center">
+    <img src="https://cdn-icons-png.flaticon.com/512/4812/4812244.png"
+         alt=""
+         class="company-image">
+  </div>
+  <div class="text-center" id="company-name">
+    {{company?.name}}
+  </div>
+  <br>
+<table class="table">
   <tr>
-    <th>Id</th>
-    <th>Name</th>
-    <th>email</th>
-    <th>Address</th>
-    <th>Phone</th>
-    <th>Website</th>
-    <th>Description</th>
-
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>{{companyId}}</td>
+    <td>Name</td>
     <td>{{company?.name}}</td>
+  </tr>
+
+  <tr>
+    <td>Email</td>
     <td>{{company?.email}}</td>
+  </tr>
+
+  <tr>
+    <td>Address</td>
     <td>{{company?.address}}</td>
+  </tr>
+
+  <tr>
+    <td>Phone</td>
     <td>{{company?.phone}}</td>
+  </tr>
+
+  <tr>
+    <td>Website</td>
     <td>{{company?.website}}</td>
+  </tr>
+
+  <tr>
+    <td>Description</td>
     <td>{{company?.description}}</td>
   </tr>
 </table>
-<a routerLink="/companies" class="btn btn-secondary" href="#" role="button">Back</a>
-
+</div>
+<a class="btn btn-secondary" href="#" role="button" routerLink="/companies">Back</a>

@@ -36,9 +36,4 @@ export class CompanyService {
     formData.append('image', image);
     return this.httpclient.post<any>('http://localhost:8080/api/v1/company/upload/' + id, formData);
   }
-
-  getImageData(id: number): Observable<Object> {
-    return this.httpclient.get<Object>('http://localhost:8080/api/v1/company/download/' + id);
-  }
-
 }

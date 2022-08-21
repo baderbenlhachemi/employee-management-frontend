@@ -2,31 +2,45 @@
   <nav class="navbar bg-light">
     <div class="container-fluid">
       <a class="navbar-brand">List of Companies</a>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" (ngModelChange)="searchCompanies(key.value)" #key="ngModel" ngModel
-               name="key" placeholder="Search" aria-label="Search">
+
+      <form class="d-flex" role="search"> <!-- search form -->
+        <input #key="ngModel" (ngModelChange)="searchCompanies(key.value)" aria-label="Search" class="form-control me-2"
+               name="key"
+               ngModel placeholder="Search" type="search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
+
     </div>
+
   </nav>
-  <div class="card m-1" style="width: 18rem;" *ngFor="let company of companies">
-    <img src="{{imageLink}}" class="img-fluid" *ngIf="retrievedImage">
-    <div class="card-body">
+  <div *ngFor="let company of companies" class="card m-1" style="width: 18rem;">
+    <br>
+    <div class="container text-center">
+      <img src="https://cdn-icons-png.flaticon.com/512/4812/4812244.png"
+           alt=""
+           class="company-image">
+    </div>
+    <div class="text-center">
       <h5 class="card-title"><i class="fa-solid fa-building"></i> {{company.name}}</h5>
-      <p class="card-text">Id : {{company.id}} <br> Email : {{company.email}} <br> Address : {{company.address}} <br> </p>
+    </div>
+    <div class="card-body">
+    <p class="card-text">Id : {{company.id}} <br> Email : {{company.email}} <br> Address : {{company.address}} <br>
+      </p>
       <div class="container">
-       <div class="text-center" >
-         <a [routerLink]="['../company', company.id]" routerLinkActive="active" class="btn btn-warning m-1"><i class="fa-solid fa-circle-info"></i></a>
-         <a routerLink="/edit-company/{{company.id}}" class="btn btn-primary m-2"><i class="fa-solid fa-pen-to-square"></i></a>
-         <button class="btn btn-danger m-1"
-                 mwlConfirmationPopover
-                 [popoverTitle]="popoverTitle"
-                 [popoverMessage]="popoverMessage"
-                 (confirm)="delete(company.id)"
-                 (cancel)="cancelClicked = true">
-           <i class="fa-solid fa-trash-can"> </i>
-         </button>
-       </div>
+        <div class="text-center">
+          <a [routerLink]="['../company', company.id]" class="btn btn-warning m-1" routerLinkActive="active"><i
+            class="fa-solid fa-circle-info"></i></a>
+          <a class="btn btn-primary m-2" routerLink="/edit-company/{{company.id}}"><i
+            class="fa-solid fa-pen-to-square"></i></a>
+          <button (cancel)="cancelClicked = true"
+                  (confirm)="delete(company.id)"
+                  [popoverMessage]="popoverMessage"
+                  [popoverTitle]="popoverTitle"
+                  class="btn btn-danger m-1"
+                  mwlConfirmationPopover>
+            <i class="fa-solid fa-trash-can"> </i>
+          </button>
+        </div>
       </div>
     </div>
   </div>

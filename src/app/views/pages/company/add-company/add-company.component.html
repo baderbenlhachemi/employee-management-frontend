@@ -2,75 +2,60 @@
 <form class="row g-3">
   <legend>Add Company</legend>
 
-  <div class="alert alert-danger" role="alert" *ngIf="errorAlreadyExists">
+  <div *ngIf="errorAlreadyExists" class="alert alert-danger" role="alert">
     {{errorAlreadyExists}}
   </div>
 
   <div class="col-md-6">
-    <label for="companyName" class="form-label mt-4"><i class="fa-solid fa-building"></i> Company Name</label>
-    <input type="text" name="name" class="form-control" id="companyName" placeholder="Company Name"
-           [(ngModel)]="companyObject.name">
-    <label style="color: red" *ngIf="errorName">{{errorName}}</label>
+    <label class="form-label mt-4" for="companyName"><i class="fa-solid fa-building"></i> Company Name</label>
+    <input [(ngModel)]="companyObject.name" class="form-control" id="companyName" name="name" placeholder="Company Name"
+           type="text">
+    <label *ngIf="errorName" style="color: red">{{errorName}}</label>
   </div>
 
   <div class="col-md-6">
-    <label for="exampleInputEmail1" class="form-label mt-4"><i class="fa-solid fa-at"></i> Email Address</label>
-    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+    <label class="form-label mt-4" for="exampleInputEmail1"><i class="fa-solid fa-at"></i> Email Address</label>
+    <input [(ngModel)]="companyObject.email" aria-describedby="emailHelp" class="form-control" id="exampleInputEmail1" name="email"
            placeholder="Enter email"
-           [(ngModel)]="companyObject.email">
-    <label style="color: red" *ngIf="errorEmail">{{errorEmail}}</label>
+           type="email">
+    <label *ngIf="errorEmail" style="color: red">{{errorEmail}}</label>
   </div>
 
   <div class="col-md-6">
-    <label for="companyAddress" class="form-label mt-4"><i class="fa-solid fa-map-location-dot"></i> Company
+    <label class="form-label mt-4" for="companyAddress"><i class="fa-solid fa-map-location-dot"></i> Company
       Address</label>
-    <input type="text" name="address" class="form-control" id="companyAddress" placeholder="Company Address"
-           [(ngModel)]="companyObject.address">
-    <label style="color: red" *ngIf="errorAddress">{{errorAddress}}</label>
+    <input [(ngModel)]="companyObject.address" class="form-control" id="companyAddress" name="address" placeholder="Company Address"
+           type="text">
+    <label *ngIf="errorAddress" style="color: red">{{errorAddress}}</label>
   </div>
 
   <div class="col-md-6">
-    <label for="companyWebsite" class="form-label mt-4"><i class="fa-brands fa-internet-explorer"></i> Company
+    <label class="form-label mt-4" for="companyWebsite"><i class="fa-brands fa-internet-explorer"></i> Company
       Website</label>
-    <input type="text" name="website" class="form-control" id="companyWebsite" placeholder="Company Website"
-           [(ngModel)]="companyObject.website">
-    <label style="color: red" *ngIf="errorWebsite">{{errorWebsite}}</label>
+    <input [(ngModel)]="companyObject.website" class="form-control" id="companyWebsite" name="website" placeholder="Company Website"
+           type="text">
+    <label *ngIf="errorWebsite" style="color: red">{{errorWebsite}}</label>
   </div>
 
   <div class="col-md-6">
-    <label for="companyPhone" class="form-label mt-4"><i class="fa-solid fa-phone"></i> Company Phone</label>
-    <input type="text" name="phone" class="form-control" id="companyPhone" placeholder="Company Phone"
-           [(ngModel)]="companyObject.phone">
-    <label style="color: red" *ngIf="errorPhone">{{errorPhone}}</label>
+    <label class="form-label mt-4" for="companyPhone"><i class="fa-solid fa-phone"></i> Company Phone</label>
+    <input [(ngModel)]="companyObject.phone" class="form-control" id="companyPhone" name="phone" placeholder="Company Phone"
+           type="text">
+    <label *ngIf="errorPhone" style="color: red">{{errorPhone}}</label>
   </div>
 
   <div class="col-md-6">
-    <label for="companyDescription" class="form-label mt-4"><i class="fa-solid fa-align-justify"></i> Company
+    <label class="form-label mt-4" for="companyDescription"><i class="fa-solid fa-align-justify"></i> Company
       Description</label>
-    <textarea type="text" name="description" class="form-control" id="companyDescription"
+    <textarea [(ngModel)]="companyObject.description" class="form-control" id="companyDescription" name="description"
               placeholder="Company Description"
-              [(ngModel)]="companyObject.description"></textarea>
+              type="text"></textarea>
   </div>
-
-  <!--  <div class="container row">
-      <div class="col-md-6">
-        <input type="file" (change)="onFileChanged($event)">
-        <img [src]="imgURL" height="200" *ngIf="imgURL">
-      </div>
-    </div>
-
-    <hr />
-
-    <div class="container row">
-      <div class="col-md-12">
-        <div *ngIf=message>{{message}}</div>
-      </div>
-    </div>-->
 
   <div class="mb-3">
-    <label for="formFile" class="form-label"><i class="fa-solid fa-image"></i> Company Image</label>
-    <input class="form-control" type="file" id="formFile" (change)="onFileChanged($event)">
-    <img [src]="imgURL" height="200" *ngIf="imgURL">
+    <label class="form-label" for="formFile"><i class="fa-solid fa-image"></i> Company Image</label>
+    <input (change)="onFileChanged($event)" class="form-control" id="formFile" type="file">
+    <img *ngIf="imgURL" [src]="imgURL" height="200">
   </div>
 
   <div class="container row">
@@ -80,8 +65,8 @@
   </div>
 
   <div>
-    <button type="submit" class="btn btn-primary m-2" (click)="addCompany()">Submit</button>
-    <a routerLink="/companies" class="btn btn-secondary" href="#" role="button">Back</a>
+    <button (click)="addCompany()" class="btn btn-primary m-2" type="submit">Submit</button>
+    <a class="btn btn-secondary" href="#" role="button" routerLink="/companies">Back</a>
   </div>
 
 </form>

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
 import {CompanyService} from "../services/company.service";
 import {Company} from "../models/company.model";
 
@@ -9,10 +9,10 @@ import {Company} from "../models/company.model";
   styleUrls: ['./company-details.component.css']
 })
 export class CompanyDetailsComponent implements OnInit {
-  companyId:number;
-  company?:Company;
+  companyId: number;
+  company?: Company;
 
-  constructor(private route:ActivatedRoute, private companyService:CompanyService) {
+  constructor(private route: ActivatedRoute, private companyService: CompanyService) {
     this.companyId = route.snapshot.params['company_id'];
   }
 
@@ -22,19 +22,11 @@ export class CompanyDetailsComponent implements OnInit {
 
   }
 
-  getCompany():void {
+  getCompany(): void {
     this.companyService.getById(this.companyId).subscribe({
       next: (data) => {
         this.company = data;
       }
     });
   }
-
-  /*delete(id:number){
-    this.companyService.delete(id).subscribe({
-      next: (data) => {
-        this.getCompany();
-      }
-    });
-  }*/
 }
