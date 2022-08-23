@@ -11,6 +11,7 @@ import {FormsModule} from "@angular/forms";
 import {EditCompanyComponent} from './views/pages/company/edit-company/edit-company.component';
 import {NotfoundComponent} from './views/pages/notfound/notfound.component';
 import {ConfirmationPopoverModule} from "angular-confirmation-popover";
+import { AuthComponent } from './views/pages/auth/auth.component';
 
 // @ts-ignore
 // @ts-ignore
@@ -21,7 +22,8 @@ import {ConfirmationPopoverModule} from "angular-confirmation-popover";
     AddCompanyComponent,
     CompanyDetailsComponent,
     EditCompanyComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
