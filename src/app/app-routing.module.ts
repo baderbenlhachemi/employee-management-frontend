@@ -18,7 +18,8 @@ const routes: Routes = [
     children : [
       {path: '', component: LoginComponent},
     ]},
-{path: '',
+
+  {path: '',
   component: AppLayoutComponent,
   children : [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -27,9 +28,13 @@ const routes: Routes = [
   {path: 'add-company', component: AddCompanyComponent},
   {path: 'edit-company/:company_id', component: EditCompanyComponent},
   {path: 'delete-company/:company_id', component: CompanyDetailsComponent},
+  ]},
 
-  {path: '**', component: NotfoundComponent}
-]},
+  {path: '',
+    component: EmptyLayoutComponent,
+    children : [
+      {path: '**', component: NotfoundComponent,pathMatch: 'full'}
+    ]},
 ];
 
 @NgModule({

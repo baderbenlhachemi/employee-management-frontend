@@ -11,11 +11,10 @@ import {FormsModule} from "@angular/forms";
 import {EditCompanyComponent} from './views/pages/company/edit-company/edit-company.component';
 import {NotfoundComponent} from './views/pages/notfound/notfound.component';
 import {ConfirmationPopoverModule} from "angular-confirmation-popover";
-import { AuthComponent } from './views/pages/auth/auth.component';
-import {LoginComponent} from "./views/pages/auth/login/login.component";
-import {AuthModule} from "./views/pages/auth/auth.module";
 import { EmptyLayoutComponent } from "./empty-layout/empty-layout.component";
 import { AppLayoutComponent } from './app-layout/app-layout.component';
+import {httpInterceptorProviders} from "./helpers/http.interceptor";
+import {LoginComponent} from "./views/pages/auth/login/login.component";
 
 // @ts-ignore
 // @ts-ignore
@@ -27,7 +26,7 @@ import { AppLayoutComponent } from './app-layout/app-layout.component';
     CompanyDetailsComponent,
     EditCompanyComponent,
     NotfoundComponent,
-    AuthComponent,
+  LoginComponent,
     EmptyLayoutComponent,
     AppLayoutComponent
   ],
@@ -36,13 +35,12 @@ import { AppLayoutComponent } from './app-layout/app-layout.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    AuthModule,
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'danger'
     })
 
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule {
