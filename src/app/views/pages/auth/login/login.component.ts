@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../auth.service";
 import {StorageService} from "../storage.service";
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -10,16 +10,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-form : any = {
-  username : null,
-  password : null
-};
-isLoggedIn = false ;
-isLoginFailed = false;
-errorMessage = '';
-roles :string[]=  [];
-  constructor(private authService : AuthService , private storageService : StorageService, private router: Router
-  ) {}
+  form: any = {
+    username: null,
+    password: null
+  };
+  isLoggedIn = false;
+  isLoginFailed = false;
+  errorMessage = '';
+  roles: string[] = [];
+
+  constructor(private authService: AuthService, private storageService: StorageService, private router: Router
+  ) {
+  }
 
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
@@ -27,9 +29,10 @@ roles :string[]=  [];
       this.roles = this.storageService.getUser().roles;
     }
   }
-  onSubmit () {
-    const {username , password} = this.form;
-    this.authService.login(username , password).subscribe({
+
+  onSubmit() {
+    const {username, password} = this.form;
+    this.authService.login(username, password).subscribe({
       next: data => {
         this.storageService.setUser(data);
         this.isLoginFailed = false;
@@ -42,12 +45,13 @@ roles :string[]=  [];
       },
 
       error: err => {
-      //  this.errorMessage = err.error.message;
+        //  this.errorMessage = err.error.message;
         this.isLoginFailed = true;
       }
     });
   }
-reloadPage() {
-  window.location.reload();
-}
+
+  reloadPage() {
+    window.location.reload();
+  }
 }

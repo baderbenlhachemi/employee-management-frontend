@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {StorageService} from "../views/pages/auth/storage.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-app-layout',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private storageService:StorageService , private route:Router) { }
 
   ngOnInit(): void {
   }
-
+  signout(){
+    this.storageService.cleanStorage();
+    this.route.navigate(['/login']);
+  }
 }

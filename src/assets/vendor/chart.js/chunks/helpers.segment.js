@@ -7,19 +7,21 @@
 function fontString(pixelSize, fontStyle, fontFamily) {
   return fontStyle + ' ' + pixelSize + 'px ' + fontFamily;
 }
-const requestAnimFrame = (function() {
+
+const requestAnimFrame = (function () {
   if (typeof window === 'undefined') {
-    return function(callback) {
+    return function (callback) {
       return callback();
     };
   }
   return window.requestAnimationFrame;
 }());
+
 function throttled(fn, thisArg, updateFn) {
   const updateArgs = updateFn || ((args) => Array.prototype.slice.call(args));
   let ticking = false;
   let args = [];
-  return function(...rest) {
+  return function (...rest) {
     args = updateArgs(rest);
     if (!ticking) {
       ticking = true;
@@ -30,9 +32,10 @@ function throttled(fn, thisArg, updateFn) {
     }
   };
 }
+
 function debounce(fn, delay) {
   let timeout;
-  return function(...args) {
+  return function (...args) {
     if (delay) {
       clearTimeout(timeout);
       timeout = setTimeout(fn, delay, args);
@@ -42,6 +45,7 @@ function debounce(fn, delay) {
     return delay;
   };
 }
+
 const _toLeftRightCenter = (align) => align === 'start' ? 'left' : align === 'end' ? 'right' : 'center';
 const _alignStartEnd = (align, start, end) => align === 'start' ? start : align === 'end' ? end : (start + end) / 2;
 const _textX = (align, left, right, rtl) => {
@@ -49,16 +53,20 @@ const _textX = (align, left, right, rtl) => {
   return align === check ? right : align === 'center' ? (left + right) / 2 : left;
 };
 
-function noop() {}
-const uid = (function() {
+function noop() {
+}
+
+const uid = (function () {
   let id = 0;
-  return function() {
+  return function () {
     return id++;
   };
 }());
+
 function isNullOrUndef(value) {
   return value === null || typeof value === 'undefined';
 }
+
 function isArray(value) {
   if (Array.isArray && Array.isArray(value)) {
     return true;
@@ -69,16 +77,21 @@ function isArray(value) {
   }
   return false;
 }
+
 function isObject(value) {
   return value !== null && Object.prototype.toString.call(value) === '[object Object]';
 }
+
 const isNumberFinite = (value) => (typeof value === 'number' || value instanceof Number) && isFinite(+value);
+
 function finiteOrDefault(value, defaultValue) {
   return isNumberFinite(value) ? value : defaultValue;
 }
+
 function valueOrDefault(value, defaultValue) {
   return typeof value === 'undefined' ? defaultValue : value;
 }
+
 const toPercentage = (value, dimension) =>
   typeof value === 'string' && value.endsWith('%') ?
     parseFloat(value) / 100
@@ -87,11 +100,13 @@ const toDimension = (value, dimension) =>
   typeof value === 'string' && value.endsWith('%') ?
     parseFloat(value) / 100 * dimension
     : +value;
+
 function callback(fn, args, thisArg) {
   if (fn && typeof fn.call === 'function') {
     return fn.apply(thisArg, args);
   }
 }
+
 function each(loopable, fn, thisArg, reverse) {
   let i, len, keys;
   if (isArray(loopable)) {
@@ -113,6 +128,7 @@ function each(loopable, fn, thisArg, reverse) {
     }
   }
 }
+
 function _elementsEqual(a0, a1) {
   let i, ilen, v0, v1;
   if (!a0 || !a1 || a0.length !== a1.length) {
@@ -127,6 +143,7 @@ function _elementsEqual(a0, a1) {
   }
   return true;
 }
+
 function clone$1(source) {
   if (isArray(source)) {
     return source.map(clone$1);
@@ -143,9 +160,11 @@ function clone$1(source) {
   }
   return source;
 }
+
 function isValidKey(key) {
   return ['__proto__', 'prototype', 'constructor'].indexOf(key) === -1;
 }
+
 function _merger(key, target, source, options) {
   if (!isValidKey(key)) {
     return;
@@ -158,6 +177,7 @@ function _merger(key, target, source, options) {
     target[key] = clone$1(sval);
   }
 }
+
 function merge(target, source, options) {
   const sources = isArray(source) ? source : [source];
   const ilen = sources.length;
@@ -178,9 +198,11 @@ function merge(target, source, options) {
   }
   return target;
 }
+
 function mergeIf(target, source) {
   return merge(target, source, {merger: _mergerIf});
 }
+
 function _mergerIf(key, target, source) {
   if (!isValidKey(key)) {
     return;
@@ -193,18 +215,22 @@ function _mergerIf(key, target, source) {
     target[key] = clone$1(sval);
   }
 }
+
 function _deprecated(scope, value, previous, current) {
   if (value !== undefined) {
     console.warn(scope + ': "' + previous +
-			'" is deprecated. Please use "' + current + '" instead');
+      '" is deprecated. Please use "' + current + '" instead');
   }
 }
+
 const emptyString = '';
 const dot = '.';
+
 function indexOfDotOrLength(key, start) {
   const idx = key.indexOf(dot, start);
   return idx === -1 ? key.length : idx;
 }
+
 function resolveObjectKey(obj, key) {
   if (key === emptyString) {
     return obj;
@@ -218,9 +244,11 @@ function resolveObjectKey(obj, key) {
   }
   return obj;
 }
+
 function _capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
 const defined = (value) => typeof value !== 'undefined';
 const isFunction = (value) => typeof value === 'function';
 const setsEqual = (a, b) => {
@@ -234,6 +262,7 @@ const setsEqual = (a, b) => {
   }
   return true;
 };
+
 function _isClickEvent(e) {
   return e.type === 'mouseup' || e.type === 'click' || e.type === 'contextmenu';
 }
@@ -248,6 +277,7 @@ const QUARTER_PI = PI / 4;
 const TWO_THIRDS_PI = PI * 2 / 3;
 const log10 = Math.log10;
 const sign = Math.sign;
+
 function niceNum(range) {
   const roundedRange = Math.round(range);
   range = almostEquals(range, roundedRange, range / 1000) ? roundedRange : range;
@@ -256,6 +286,7 @@ function niceNum(range) {
   const niceFraction = fraction <= 1 ? 1 : fraction <= 2 ? 2 : fraction <= 5 ? 5 : 10;
   return niceFraction * niceRange;
 }
+
 function _factorize(value) {
   const result = [];
   const sqrt = Math.sqrt(value);
@@ -272,16 +303,20 @@ function _factorize(value) {
   result.sort((a, b) => a - b).pop();
   return result;
 }
+
 function isNumber(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
+
 function almostEquals(x, y, epsilon) {
   return Math.abs(x - y) < epsilon;
 }
+
 function almostWhole(x, epsilon) {
   const rounded = Math.round(x);
   return ((rounded - epsilon) <= x) && ((rounded + epsilon) >= x);
 }
+
 function _setMinAndMaxByKey(array, target, property) {
   let i, ilen, value;
   for (i = 0, ilen = array.length; i < ilen; i++) {
@@ -292,12 +327,15 @@ function _setMinAndMaxByKey(array, target, property) {
     }
   }
 }
+
 function toRadians(degrees) {
   return degrees * (PI / 180);
 }
+
 function toDegrees(radians) {
   return radians * (180 / PI);
 }
+
 function _decimalPlaces(x) {
   if (!isNumberFinite(x)) {
     return;
@@ -310,6 +348,7 @@ function _decimalPlaces(x) {
   }
   return p;
 }
+
 function getAngleFromPoint(centrePoint, anglePoint) {
   const distanceFromXCenter = anglePoint.x - centrePoint.x;
   const distanceFromYCenter = anglePoint.y - centrePoint.y;
@@ -323,15 +362,19 @@ function getAngleFromPoint(centrePoint, anglePoint) {
     distance: radialDistanceFromCenter
   };
 }
+
 function distanceBetweenPoints(pt1, pt2) {
   return Math.sqrt(Math.pow(pt2.x - pt1.x, 2) + Math.pow(pt2.y - pt1.y, 2));
 }
+
 function _angleDiff(a, b) {
   return (a - b + PITAU) % TAU - PI;
 }
+
 function _normalizeAngle(a) {
   return (a % TAU + TAU) % TAU;
 }
+
 function _angleBetween(angle, start, end, sameAngleIsFullCircle) {
   const a = _normalizeAngle(angle);
   const s = _normalizeAngle(start);
@@ -343,12 +386,15 @@ function _angleBetween(angle, start, end, sameAngleIsFullCircle) {
   return a === s || a === e || (sameAngleIsFullCircle && s === e)
     || (angleToStart > angleToEnd && startToAngle < endToAngle);
 }
+
 function _limitValue(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
+
 function _int16Range(value) {
   return _limitValue(value, -32768, 32767);
 }
+
 function _isBetween(value, start, end, epsilon = 1e-6) {
   return value >= Math.min(start, end) - epsilon && value <= Math.max(start, end) + epsilon;
 }
@@ -445,25 +491,55 @@ const effects = {
 function round(v) {
   return v + 0.5 | 0;
 }
+
 const lim = (v, l, h) => Math.max(Math.min(v, h), l);
+
 function p2b(v) {
   return lim(round(v * 2.55), 0, 255);
 }
+
 function n2b(v) {
   return lim(round(v * 255), 0, 255);
 }
+
 function b2n(v) {
   return lim(round(v / 2.55) / 100, 0, 1);
 }
+
 function n2p(v) {
   return lim(round(v * 100), 0, 100);
 }
-const map$1 = {0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, A: 10, B: 11, C: 12, D: 13, E: 14, F: 15, a: 10, b: 11, c: 12, d: 13, e: 14, f: 15};
+
+const map$1 = {
+  0: 0,
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+  6: 6,
+  7: 7,
+  8: 8,
+  9: 9,
+  A: 10,
+  B: 11,
+  C: 12,
+  D: 13,
+  E: 14,
+  F: 15,
+  a: 10,
+  b: 11,
+  c: 12,
+  d: 13,
+  e: 14,
+  f: 15
+};
 const hex = [...'0123456789ABCDEF'];
 const h1 = b => hex[b & 0xF];
 const h2 = b => hex[(b & 0xF0) >> 4] + hex[b & 0xF];
 const eq = b => ((b & 0xF0) >> 4) === (b & 0xF);
 const isShort = v => eq(v.r) && eq(v.g) && eq(v.b) && eq(v.a);
+
 function hexParse(str) {
   var len = str.length;
   var ret;
@@ -486,23 +562,29 @@ function hexParse(str) {
   }
   return ret;
 }
+
 const alpha = (a, f) => a < 255 ? f(a) : '';
+
 function hexString(v) {
   var f = isShort(v) ? h1 : h2;
   return v
     ? '#' + f(v.r) + f(v.g) + f(v.b) + alpha(v.a, f)
     : undefined;
 }
+
 const HUE_RE = /^(hsla?|hwb|hsv)\(\s*([-+.e\d]+)(?:deg)?[\s,]+([-+.e\d]+)%[\s,]+([-+.e\d]+)%(?:[\s,]+([-+.e\d]+)(%)?)?\s*\)$/;
+
 function hsl2rgbn(h, s, l) {
   const a = s * Math.min(l, 1 - l);
   const f = (n, k = (n + h / 30) % 12) => l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
   return [f(0), f(8), f(4)];
 }
+
 function hsv2rgbn(h, s, v) {
   const f = (n, k = (n + h / 60) % 6) => v - v * s * Math.max(Math.min(k, 4 - k, 1), 0);
   return [f(5), f(3), f(1)];
 }
+
 function hwb2rgbn(h, w, b) {
   const rgb = hsl2rgbn(h, 1, 0.5);
   let i;
@@ -517,6 +599,7 @@ function hwb2rgbn(h, w, b) {
   }
   return rgb;
 }
+
 function hueValue(r, g, b, d, max) {
   if (r === max) {
     return ((g - b) / d) + (g < b ? 6 : 0);
@@ -526,6 +609,7 @@ function hueValue(r, g, b, d, max) {
   }
   return (r - g) / d + 4;
 }
+
 function rgb2hsl(v) {
   const range = 255;
   const r = v.r / range;
@@ -543,6 +627,7 @@ function rgb2hsl(v) {
   }
   return [h | 0, s || 0, l];
 }
+
 function calln(f, a, b, c) {
   return (
     Array.isArray(a)
@@ -550,18 +635,23 @@ function calln(f, a, b, c) {
       : f(a, b, c)
   ).map(n2b);
 }
+
 function hsl2rgb(h, s, l) {
   return calln(hsl2rgbn, h, s, l);
 }
+
 function hwb2rgb(h, w, b) {
   return calln(hwb2rgbn, h, w, b);
 }
+
 function hsv2rgb(h, s, v) {
   return calln(hsv2rgbn, h, s, v);
 }
+
 function hue(h) {
   return (h % 360 + 360) % 360;
 }
+
 function hueParse(str) {
   const m = HUE_RE.exec(str);
   let a = 255;
@@ -589,6 +679,7 @@ function hueParse(str) {
     a: a
   };
 }
+
 function rotate(v, deg) {
   var h = rgb2hsl(v);
   h[0] = hue(h[0] + deg);
@@ -597,6 +688,7 @@ function rotate(v, deg) {
   v.g = h[1];
   v.b = h[2];
 }
+
 function hslString(v) {
   if (!v) {
     return;
@@ -609,6 +701,7 @@ function hslString(v) {
     ? `hsla(${h}, ${s}%, ${l}%, ${b2n(v.a)})`
     : `hsl(${h}, ${s}%, ${l}%)`;
 }
+
 const map = {
   x: 'dark',
   Z: 'light',
@@ -788,6 +881,7 @@ const names$1 = {
   Lw: 'ffff00',
   LwgYF: '9acd32'
 };
+
 function unpack() {
   const unpacked = {};
   const keys = Object.keys(names$1);
@@ -804,7 +898,9 @@ function unpack() {
   }
   return unpacked;
 }
+
 let names;
+
 function nameParse(str) {
   if (!names) {
     names = unpack();
@@ -818,7 +914,9 @@ function nameParse(str) {
     a: a.length === 4 ? a[3] : 255
   };
 }
+
 const RGB_RE = /^rgba?\(\s*([-+.\d]+)(%)?[\s,]+([-+.e\d]+)(%)?[\s,]+([-+.e\d]+)(%)?(?:[\s,/]+([-+.e\d]+)(%)?)?\s*\)$/;
+
 function rgbParse(str) {
   const m = RGB_RE.exec(str);
   let a = 255;
@@ -843,6 +941,7 @@ function rgbParse(str) {
     a: a
   };
 }
+
 function rgbString(v) {
   return v && (
     v.a < 255
@@ -850,8 +949,10 @@ function rgbString(v) {
       : `rgb(${v.r}, ${v.g}, ${v.b})`
   );
 }
+
 const to = v => v <= 0.0031308 ? v * 12.92 : Math.pow(v, 1.0 / 2.4) * 1.055 - 0.055;
 const from = v => v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+
 function interpolate(rgb1, rgb2, t) {
   const r = from(b2n(rgb1.r));
   const g = from(b2n(rgb1.g));
@@ -863,6 +964,7 @@ function interpolate(rgb1, rgb2, t) {
     a: rgb1.a + t * (rgb2.a - rgb1.a)
   };
 }
+
 function modHSL(v, i, ratio) {
   if (v) {
     let tmp = rgb2hsl(v);
@@ -873,9 +975,11 @@ function modHSL(v, i, ratio) {
     v.b = tmp[2];
   }
 }
+
 function clone(v, proto) {
   return v ? Object.assign(proto || {}, v) : v;
 }
+
 function fromObject(input) {
   var v = {r: 0, g: 0, b: 0, a: 255};
   if (Array.isArray(input)) {
@@ -891,12 +995,14 @@ function fromObject(input) {
   }
   return v;
 }
+
 function functionParse(str) {
   if (str.charAt(0) === 'r') {
     return rgbParse(str);
   }
   return hueParse(str);
 }
+
 class Color {
   constructor(input) {
     if (input instanceof Color) {
@@ -912,9 +1018,11 @@ class Color {
     this._rgb = v;
     this._valid = !!v;
   }
+
   get valid() {
     return this._valid;
   }
+
   get rgb() {
     var v = clone(this._rgb);
     if (v) {
@@ -922,18 +1030,23 @@ class Color {
     }
     return v;
   }
+
   set rgb(obj) {
     this._rgb = fromObject(obj);
   }
+
   rgbString() {
     return this._valid ? rgbString(this._rgb) : undefined;
   }
+
   hexString() {
     return this._valid ? hexString(this._rgb) : undefined;
   }
+
   hslString() {
     return this._valid ? hslString(this._rgb) : undefined;
   }
+
   mix(color, weight) {
     if (color) {
       const c1 = this.rgb;
@@ -952,35 +1065,42 @@ class Color {
     }
     return this;
   }
+
   interpolate(color, t) {
     if (color) {
       this._rgb = interpolate(this._rgb, color._rgb, t);
     }
     return this;
   }
+
   clone() {
     return new Color(this.rgb);
   }
+
   alpha(a) {
     this._rgb.a = n2b(a);
     return this;
   }
+
   clearer(ratio) {
     const rgb = this._rgb;
     rgb.a *= 1 - ratio;
     return this;
   }
+
   greyscale() {
     const rgb = this._rgb;
     const val = round(rgb.r * 0.3 + rgb.g * 0.59 + rgb.b * 0.11);
     rgb.r = rgb.g = rgb.b = val;
     return this;
   }
+
   opaquer(ratio) {
     const rgb = this._rgb;
     rgb.a *= 1 + ratio;
     return this;
   }
+
   negate() {
     const v = this._rgb;
     v.r = 255 - v.r;
@@ -988,27 +1108,33 @@ class Color {
     v.b = 255 - v.b;
     return this;
   }
+
   lighten(ratio) {
     modHSL(this._rgb, 2, ratio);
     return this;
   }
+
   darken(ratio) {
     modHSL(this._rgb, 2, -ratio);
     return this;
   }
+
   saturate(ratio) {
     modHSL(this._rgb, 1, ratio);
     return this;
   }
+
   desaturate(ratio) {
     modHSL(this._rgb, 1, -ratio);
     return this;
   }
+
   rotate(deg) {
     rotate(this._rgb, deg);
     return this;
   }
 }
+
 function index_esm(input) {
   return new Color(input);
 }
@@ -1020,9 +1146,11 @@ function isPatternOrGradient(value) {
   }
   return false;
 }
+
 function color(value) {
   return isPatternOrGradient(value) ? value : index_esm(value);
 }
+
 function getHoverColor(value) {
   return isPatternOrGradient(value)
     ? value
@@ -1031,6 +1159,7 @@ function getHoverColor(value) {
 
 const overrides = Object.create(null);
 const descriptors = Object.create(null);
+
 function getScope$1(node, key) {
   if (!key) {
     return node;
@@ -1042,12 +1171,14 @@ function getScope$1(node, key) {
   }
   return node;
 }
+
 function set(root, scope, values) {
   if (typeof scope === 'string') {
     return merge(getScope$1(root, scope), values);
   }
   return merge(getScope$1(root, ''), scope);
 }
+
 class Defaults {
   constructor(_descriptors) {
     this.animation = undefined;
@@ -1093,18 +1224,23 @@ class Defaults {
     this.drawActiveElementsOnTop = true;
     this.describe(_descriptors);
   }
+
   set(scope, values) {
     return set(this, scope, values);
   }
+
   get(scope) {
     return getScope$1(this, scope);
   }
+
   describe(scope, values) {
     return set(descriptors, scope, values);
   }
+
   override(scope, values) {
     return set(overrides, scope, values);
   }
+
   route(scope, name, targetScope, targetName) {
     const scopeObject = getScope$1(this, scope);
     const targetScopeObject = getScope$1(this, targetScope);
@@ -1131,6 +1267,7 @@ class Defaults {
     });
   }
 }
+
 var defaults = new Defaults({
   _scriptable: (name) => !name.startsWith('on'),
   _indexable: (name) => name !== 'events',
@@ -1148,10 +1285,11 @@ function toFontString(font) {
     return null;
   }
   return (font.style ? font.style + ' ' : '')
-		+ (font.weight ? font.weight + ' ' : '')
-		+ font.size + 'px '
-		+ font.family;
+    + (font.weight ? font.weight + ' ' : '')
+    + font.size + 'px '
+    + font.family;
 }
+
 function _measureText(ctx, data, gc, longest, string) {
   let textWidth = data[string];
   if (!textWidth) {
@@ -1163,6 +1301,7 @@ function _measureText(ctx, data, gc, longest, string) {
   }
   return longest;
 }
+
 function _longestText(ctx, font, arrayOfThings, cache) {
   cache = cache || {};
   let data = cache.data = cache.data || {};
@@ -1200,11 +1339,13 @@ function _longestText(ctx, font, arrayOfThings, cache) {
   }
   return longest;
 }
+
 function _alignPixel(chart, pixel, width) {
   const devicePixelRatio = chart.currentDevicePixelRatio;
   const halfWidth = width !== 0 ? Math.max(width / 2, 0.5) : 0;
   return Math.round((pixel - halfWidth) * devicePixelRatio) / devicePixelRatio + halfWidth;
 }
+
 function clearCanvas(canvas, ctx) {
   ctx = ctx || canvas.getContext('2d');
   ctx.save();
@@ -1212,6 +1353,7 @@ function clearCanvas(canvas, ctx) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.restore();
 }
+
 function drawPoint(ctx, options, x, y) {
   let type, xOffset, yOffset, size, cornerRadius;
   const style = options.pointStyle;
@@ -1234,100 +1376,104 @@ function drawPoint(ctx, options, x, y) {
   }
   ctx.beginPath();
   switch (style) {
-  default:
-    ctx.arc(x, y, radius, 0, TAU);
-    ctx.closePath();
-    break;
-  case 'triangle':
-    ctx.moveTo(x + Math.sin(rad) * radius, y - Math.cos(rad) * radius);
-    rad += TWO_THIRDS_PI;
-    ctx.lineTo(x + Math.sin(rad) * radius, y - Math.cos(rad) * radius);
-    rad += TWO_THIRDS_PI;
-    ctx.lineTo(x + Math.sin(rad) * radius, y - Math.cos(rad) * radius);
-    ctx.closePath();
-    break;
-  case 'rectRounded':
-    cornerRadius = radius * 0.516;
-    size = radius - cornerRadius;
-    xOffset = Math.cos(rad + QUARTER_PI) * size;
-    yOffset = Math.sin(rad + QUARTER_PI) * size;
-    ctx.arc(x - xOffset, y - yOffset, cornerRadius, rad - PI, rad - HALF_PI);
-    ctx.arc(x + yOffset, y - xOffset, cornerRadius, rad - HALF_PI, rad);
-    ctx.arc(x + xOffset, y + yOffset, cornerRadius, rad, rad + HALF_PI);
-    ctx.arc(x - yOffset, y + xOffset, cornerRadius, rad + HALF_PI, rad + PI);
-    ctx.closePath();
-    break;
-  case 'rect':
-    if (!rotation) {
-      size = Math.SQRT1_2 * radius;
-      ctx.rect(x - size, y - size, 2 * size, 2 * size);
+    default:
+      ctx.arc(x, y, radius, 0, TAU);
+      ctx.closePath();
       break;
-    }
-    rad += QUARTER_PI;
-  case 'rectRot':
-    xOffset = Math.cos(rad) * radius;
-    yOffset = Math.sin(rad) * radius;
-    ctx.moveTo(x - xOffset, y - yOffset);
-    ctx.lineTo(x + yOffset, y - xOffset);
-    ctx.lineTo(x + xOffset, y + yOffset);
-    ctx.lineTo(x - yOffset, y + xOffset);
-    ctx.closePath();
-    break;
-  case 'crossRot':
-    rad += QUARTER_PI;
-  case 'cross':
-    xOffset = Math.cos(rad) * radius;
-    yOffset = Math.sin(rad) * radius;
-    ctx.moveTo(x - xOffset, y - yOffset);
-    ctx.lineTo(x + xOffset, y + yOffset);
-    ctx.moveTo(x + yOffset, y - xOffset);
-    ctx.lineTo(x - yOffset, y + xOffset);
-    break;
-  case 'star':
-    xOffset = Math.cos(rad) * radius;
-    yOffset = Math.sin(rad) * radius;
-    ctx.moveTo(x - xOffset, y - yOffset);
-    ctx.lineTo(x + xOffset, y + yOffset);
-    ctx.moveTo(x + yOffset, y - xOffset);
-    ctx.lineTo(x - yOffset, y + xOffset);
-    rad += QUARTER_PI;
-    xOffset = Math.cos(rad) * radius;
-    yOffset = Math.sin(rad) * radius;
-    ctx.moveTo(x - xOffset, y - yOffset);
-    ctx.lineTo(x + xOffset, y + yOffset);
-    ctx.moveTo(x + yOffset, y - xOffset);
-    ctx.lineTo(x - yOffset, y + xOffset);
-    break;
-  case 'line':
-    xOffset = Math.cos(rad) * radius;
-    yOffset = Math.sin(rad) * radius;
-    ctx.moveTo(x - xOffset, y - yOffset);
-    ctx.lineTo(x + xOffset, y + yOffset);
-    break;
-  case 'dash':
-    ctx.moveTo(x, y);
-    ctx.lineTo(x + Math.cos(rad) * radius, y + Math.sin(rad) * radius);
-    break;
+    case 'triangle':
+      ctx.moveTo(x + Math.sin(rad) * radius, y - Math.cos(rad) * radius);
+      rad += TWO_THIRDS_PI;
+      ctx.lineTo(x + Math.sin(rad) * radius, y - Math.cos(rad) * radius);
+      rad += TWO_THIRDS_PI;
+      ctx.lineTo(x + Math.sin(rad) * radius, y - Math.cos(rad) * radius);
+      ctx.closePath();
+      break;
+    case 'rectRounded':
+      cornerRadius = radius * 0.516;
+      size = radius - cornerRadius;
+      xOffset = Math.cos(rad + QUARTER_PI) * size;
+      yOffset = Math.sin(rad + QUARTER_PI) * size;
+      ctx.arc(x - xOffset, y - yOffset, cornerRadius, rad - PI, rad - HALF_PI);
+      ctx.arc(x + yOffset, y - xOffset, cornerRadius, rad - HALF_PI, rad);
+      ctx.arc(x + xOffset, y + yOffset, cornerRadius, rad, rad + HALF_PI);
+      ctx.arc(x - yOffset, y + xOffset, cornerRadius, rad + HALF_PI, rad + PI);
+      ctx.closePath();
+      break;
+    case 'rect':
+      if (!rotation) {
+        size = Math.SQRT1_2 * radius;
+        ctx.rect(x - size, y - size, 2 * size, 2 * size);
+        break;
+      }
+      rad += QUARTER_PI;
+    case 'rectRot':
+      xOffset = Math.cos(rad) * radius;
+      yOffset = Math.sin(rad) * radius;
+      ctx.moveTo(x - xOffset, y - yOffset);
+      ctx.lineTo(x + yOffset, y - xOffset);
+      ctx.lineTo(x + xOffset, y + yOffset);
+      ctx.lineTo(x - yOffset, y + xOffset);
+      ctx.closePath();
+      break;
+    case 'crossRot':
+      rad += QUARTER_PI;
+    case 'cross':
+      xOffset = Math.cos(rad) * radius;
+      yOffset = Math.sin(rad) * radius;
+      ctx.moveTo(x - xOffset, y - yOffset);
+      ctx.lineTo(x + xOffset, y + yOffset);
+      ctx.moveTo(x + yOffset, y - xOffset);
+      ctx.lineTo(x - yOffset, y + xOffset);
+      break;
+    case 'star':
+      xOffset = Math.cos(rad) * radius;
+      yOffset = Math.sin(rad) * radius;
+      ctx.moveTo(x - xOffset, y - yOffset);
+      ctx.lineTo(x + xOffset, y + yOffset);
+      ctx.moveTo(x + yOffset, y - xOffset);
+      ctx.lineTo(x - yOffset, y + xOffset);
+      rad += QUARTER_PI;
+      xOffset = Math.cos(rad) * radius;
+      yOffset = Math.sin(rad) * radius;
+      ctx.moveTo(x - xOffset, y - yOffset);
+      ctx.lineTo(x + xOffset, y + yOffset);
+      ctx.moveTo(x + yOffset, y - xOffset);
+      ctx.lineTo(x - yOffset, y + xOffset);
+      break;
+    case 'line':
+      xOffset = Math.cos(rad) * radius;
+      yOffset = Math.sin(rad) * radius;
+      ctx.moveTo(x - xOffset, y - yOffset);
+      ctx.lineTo(x + xOffset, y + yOffset);
+      break;
+    case 'dash':
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + Math.cos(rad) * radius, y + Math.sin(rad) * radius);
+      break;
   }
   ctx.fill();
   if (options.borderWidth > 0) {
     ctx.stroke();
   }
 }
+
 function _isPointInArea(point, area, margin) {
   margin = margin || 0.5;
   return !area || (point && point.x > area.left - margin && point.x < area.right + margin &&
-		point.y > area.top - margin && point.y < area.bottom + margin);
+    point.y > area.top - margin && point.y < area.bottom + margin);
 }
+
 function clipArea(ctx, area) {
   ctx.save();
   ctx.beginPath();
   ctx.rect(area.left, area.top, area.right - area.left, area.bottom - area.top);
   ctx.clip();
 }
+
 function unclipArea(ctx) {
   ctx.restore();
 }
+
 function _steppedLineTo(ctx, previous, target, flip, mode) {
   if (!previous) {
     return ctx.lineTo(target.x, target.y);
@@ -1343,6 +1489,7 @@ function _steppedLineTo(ctx, previous, target, flip, mode) {
   }
   ctx.lineTo(target.x, target.y);
 }
+
 function _bezierCurveTo(ctx, previous, target, flip) {
   if (!previous) {
     return ctx.lineTo(target.x, target.y);
@@ -1355,6 +1502,7 @@ function _bezierCurveTo(ctx, previous, target, flip) {
     target.x,
     target.y);
 }
+
 function renderText(ctx, text, x, y, font, opts = {}) {
   const lines = isArray(text) ? text : [text];
   const stroke = opts.strokeWidth > 0 && opts.strokeColor !== '';
@@ -1379,6 +1527,7 @@ function renderText(ctx, text, x, y, font, opts = {}) {
   }
   ctx.restore();
 }
+
 function setRenderOpts(ctx, opts) {
   if (opts.translation) {
     ctx.translate(opts.translation[0], opts.translation[1]);
@@ -1396,6 +1545,7 @@ function setRenderOpts(ctx, opts) {
     ctx.textBaseline = opts.textBaseline;
   }
 }
+
 function decorateText(ctx, x, y, line, opts) {
   if (opts.strikethrough || opts.underline) {
     const metrics = ctx.measureText(line);
@@ -1412,6 +1562,7 @@ function decorateText(ctx, x, y, line, opts) {
     ctx.stroke();
   }
 }
+
 function addRoundedRectPath(ctx, rect) {
   const {x, y, w, h, radius} = rect;
   ctx.arc(x + radius.topLeft, y + radius.topLeft, radius.topLeft, -HALF_PI, PI, true);
@@ -1426,6 +1577,7 @@ function addRoundedRectPath(ctx, rect) {
 
 const LINE_HEIGHT = new RegExp(/^(normal|(\d+(?:\.\d+)?)(px|em|%)?)$/);
 const FONT_STYLE = new RegExp(/^(normal|italic|initial|inherit|unset|(oblique( -?[0-9]?[0-9]deg)?))$/);
+
 function toLineHeight(value, size) {
   const matches = ('' + value).match(LINE_HEIGHT);
   if (!matches || matches[1] === 'normal') {
@@ -1433,15 +1585,17 @@ function toLineHeight(value, size) {
   }
   value = +matches[2];
   switch (matches[3]) {
-  case 'px':
-    return value;
-  case '%':
-    value /= 100;
-    break;
+    case 'px':
+      return value;
+    case '%':
+      value /= 100;
+      break;
   }
   return size * value;
 }
+
 const numberOrZero = v => +v || 0;
+
 function _readValueToProps(value, props) {
   const ret = {};
   const objProps = isObject(props);
@@ -1456,18 +1610,22 @@ function _readValueToProps(value, props) {
   }
   return ret;
 }
+
 function toTRBL(value) {
   return _readValueToProps(value, {top: 'y', right: 'x', bottom: 'y', left: 'x'});
 }
+
 function toTRBLCorners(value) {
   return _readValueToProps(value, ['topLeft', 'topRight', 'bottomLeft', 'bottomRight']);
 }
+
 function toPadding(value) {
   const obj = toTRBL(value);
   obj.width = obj.left + obj.right;
   obj.height = obj.top + obj.bottom;
   return obj;
 }
+
 function toFont(options, fallback) {
   options = options || {};
   fallback = fallback || defaults.font;
@@ -1491,6 +1649,7 @@ function toFont(options, fallback) {
   font.string = toFontString(font);
   return font;
 }
+
 function resolve(inputs, context, index, info) {
   let cacheable = true;
   let i, ilen, value;
@@ -1515,6 +1674,7 @@ function resolve(inputs, context, index, info) {
     }
   }
 }
+
 function _addGrace(minmax, grace, beginAtZero) {
   const {min, max} = minmax;
   const change = toDimension(grace, (max - min) / 2);
@@ -1524,6 +1684,7 @@ function _addGrace(minmax, grace, beginAtZero) {
     max: keepZero(max, change)
   };
 }
+
 function createContext(parentContext, context) {
   return Object.assign(Object.create(parentContext), context);
 }
@@ -1543,10 +1704,12 @@ function _lookup(table, value, cmp) {
   }
   return {lo, hi};
 }
+
 const _lookupByKey = (table, key, value) =>
   _lookup(table, value, index => table[index][key] < value);
 const _rlookupByKey = (table, key, value) =>
   _lookup(table, value, index => table[index][key] >= value);
+
 function _filterBetween(values, min, max) {
   let start = 0;
   let end = values.length;
@@ -1560,7 +1723,9 @@ function _filterBetween(values, min, max) {
     ? values.slice(start, end)
     : values;
 }
+
 const arrayEvents = ['push', 'pop', 'shift', 'splice', 'unshift'];
+
 function listenArrayEvents(array, listener) {
   if (array._chartjs) {
     array._chartjs.listeners.push(listener);
@@ -1591,6 +1756,7 @@ function listenArrayEvents(array, listener) {
     });
   });
 }
+
 function unlistenArrayEvents(array, listener) {
   const stub = array._chartjs;
   if (!stub) {
@@ -1609,6 +1775,7 @@ function unlistenArrayEvents(array, listener) {
   });
   delete array._chartjs;
 }
+
 function _arrayUnique(items) {
   const set = new Set();
   let i, ilen;
@@ -1665,6 +1832,7 @@ function _createResolver(scopes, prefixes = [''], rootScopes = scopes, fallback,
     }
   });
 }
+
 function _attachContext(proxy, context, subProxy, descriptorDefaults) {
   const cache = {
     _cacheable: false,
@@ -1707,6 +1875,7 @@ function _attachContext(proxy, context, subProxy, descriptorDefaults) {
     }
   });
 }
+
 function _descriptors(proxy, defaults = {scriptable: true, indexable: true}) {
   const {_scriptable = defaults.scriptable, _indexable = defaults.indexable, _allKeys = defaults.allKeys} = proxy;
   return {
@@ -1717,9 +1886,11 @@ function _descriptors(proxy, defaults = {scriptable: true, indexable: true}) {
     isIndexable: isFunction(_indexable) ? _indexable : () => _indexable
   };
 }
+
 const readKey = (prefix, name) => prefix ? prefix + _capitalize(name) : name;
 const needsSubResolver = (prop, value) => isObject(value) && prop !== 'adapters' &&
   (Object.getPrototypeOf(value) === null || value.constructor === Object);
+
 function _cached(target, prop, resolve) {
   if (Object.prototype.hasOwnProperty.call(target, prop)) {
     return target[prop];
@@ -1728,6 +1899,7 @@ function _cached(target, prop, resolve) {
   target[prop] = value;
   return value;
 }
+
 function _resolveWithContext(target, prop, receiver) {
   const {_proxy, _context, _subProxy, _descriptors: descriptors} = target;
   let value = _proxy[prop];
@@ -1742,6 +1914,7 @@ function _resolveWithContext(target, prop, receiver) {
   }
   return value;
 }
+
 function _resolveScriptable(prop, value, target, receiver) {
   const {_proxy, _context, _subProxy, _stack} = target;
   if (_stack.has(prop)) {
@@ -1755,6 +1928,7 @@ function _resolveScriptable(prop, value, target, receiver) {
   }
   return value;
 }
+
 function _resolveArray(prop, value, target, isIndexable) {
   const {_proxy, _context, _subProxy, _descriptors: descriptors} = target;
   if (defined(_context.index) && isIndexable(prop)) {
@@ -1770,11 +1944,14 @@ function _resolveArray(prop, value, target, isIndexable) {
   }
   return value;
 }
+
 function resolveFallback(fallback, prop, value) {
   return isFunction(fallback) ? fallback(prop, value) : fallback;
 }
+
 const getScope = (key, parent) => key === true ? parent
   : typeof key === 'string' ? resolveObjectKey(parent, key) : undefined;
+
 function addScopes(set, parentScopes, key, parentFallback, value) {
   for (const parent of parentScopes) {
     const scope = getScope(key, parent);
@@ -1790,6 +1967,7 @@ function addScopes(set, parentScopes, key, parentFallback, value) {
   }
   return false;
 }
+
 function createSubResolver(parentScopes, resolver, prop, value) {
   const rootScopes = resolver._rootScopes;
   const fallback = resolveFallback(resolver._fallback, prop, value);
@@ -1809,12 +1987,14 @@ function createSubResolver(parentScopes, resolver, prop, value) {
   return _createResolver(Array.from(set), [''], rootScopes, fallback,
     () => subGetTarget(resolver, prop, value));
 }
+
 function addScopesFromKey(set, allScopes, key, fallback, item) {
   while (key) {
     key = addScopes(set, allScopes, key, fallback, item);
   }
   return key;
 }
+
 function subGetTarget(resolver, prop, value) {
   const parent = resolver._getTarget();
   if (!(prop in parent)) {
@@ -1826,6 +2006,7 @@ function subGetTarget(resolver, prop, value) {
   }
   return target;
 }
+
 function _resolveWithPrefixes(prop, prefixes, scopes, proxy) {
   let value;
   for (const prefix of prefixes) {
@@ -1837,6 +2018,7 @@ function _resolveWithPrefixes(prop, prefixes, scopes, proxy) {
     }
   }
 }
+
 function _resolve(key, scopes) {
   for (const scope of scopes) {
     if (!scope) {
@@ -1848,6 +2030,7 @@ function _resolve(key, scopes) {
     }
   }
 }
+
 function getKeysFromAllScopes(target) {
   let keys = target._keys;
   if (!keys) {
@@ -1855,6 +2038,7 @@ function getKeysFromAllScopes(target) {
   }
   return keys;
 }
+
 function resolveKeysFromAllScopes(scopes) {
   const set = new Set();
   for (const scope of scopes) {
@@ -1864,6 +2048,7 @@ function resolveKeysFromAllScopes(scopes) {
   }
   return Array.from(set);
 }
+
 function _parseObjectDataRadialScale(meta, data, start, count) {
   const {iScale} = meta;
   const {key = 'r'} = this._parsing;
@@ -1882,6 +2067,7 @@ function _parseObjectDataRadialScale(meta, data, start, count) {
 const EPSILON = Number.EPSILON || 1e-14;
 const getPoint = (points, i) => i < points.length && !points[i].skip && points[i];
 const getValueAxis = (indexAxis) => indexAxis === 'x' ? 'y' : 'x';
+
 function splineCurve(firstPoint, middlePoint, afterPoint, t) {
   const previous = firstPoint.skip ? middlePoint : firstPoint;
   const current = middlePoint;
@@ -1905,6 +2091,7 @@ function splineCurve(firstPoint, middlePoint, afterPoint, t) {
     }
   };
 }
+
 function monotoneAdjust(points, deltaK, mK) {
   const pointsLen = points.length;
   let alphaK, betaK, tauK, squaredMagnitude, pointCurrent;
@@ -1930,6 +2117,7 @@ function monotoneAdjust(points, deltaK, mK) {
     mK[i + 1] = betaK * tauK * deltaK[i];
   }
 }
+
 function monotoneCompute(points, mK, indexAxis = 'x') {
   const valueAxis = getValueAxis(indexAxis);
   const pointsLen = points.length;
@@ -1956,6 +2144,7 @@ function monotoneCompute(points, mK, indexAxis = 'x') {
     }
   }
 }
+
 function splineCurveMonotone(points, indexAxis = 'x') {
   const valueAxis = getValueAxis(indexAxis);
   const pointsLen = points.length;
@@ -1976,15 +2165,17 @@ function splineCurveMonotone(points, indexAxis = 'x') {
     }
     mK[i] = !pointBefore ? deltaK[i]
       : !pointAfter ? deltaK[i - 1]
-      : (sign(deltaK[i - 1]) !== sign(deltaK[i])) ? 0
-      : (deltaK[i - 1] + deltaK[i]) / 2;
+        : (sign(deltaK[i - 1]) !== sign(deltaK[i])) ? 0
+          : (deltaK[i - 1] + deltaK[i]) / 2;
   }
   monotoneAdjust(points, deltaK, mK);
   monotoneCompute(points, mK, indexAxis);
 }
+
 function capControlPoint(pt, min, max) {
   return Math.max(Math.min(pt, max), min);
 }
+
 function capBezierPoints(points, area) {
   let i, ilen, point, inArea, inAreaPrev;
   let inAreaNext = _isPointInArea(points[0], area);
@@ -2006,6 +2197,7 @@ function capBezierPoints(points, area) {
     }
   }
 }
+
 function _updateBezierControlPoints(points, options, area, loop, indexAxis) {
   let i, ilen, point, controlPoints;
   if (options.spanGaps) {
@@ -2038,6 +2230,7 @@ function _updateBezierControlPoints(points, options, area, loop, indexAxis) {
 function _isDomSupported() {
   return typeof window !== 'undefined' && typeof document !== 'undefined';
 }
+
 function _getParentNode(domNode) {
   let parent = domNode.parentNode;
   if (parent && parent.toString() === '[object ShadowRoot]') {
@@ -2045,6 +2238,7 @@ function _getParentNode(domNode) {
   }
   return parent;
 }
+
 function parseMaxStyle(styleValue, node, parentProperty) {
   let valueInPixels;
   if (typeof styleValue === 'string') {
@@ -2057,11 +2251,15 @@ function parseMaxStyle(styleValue, node, parentProperty) {
   }
   return valueInPixels;
 }
+
 const getComputedStyle = (element) => window.getComputedStyle(element, null);
+
 function getStyle(el, property) {
   return getComputedStyle(el).getPropertyValue(property);
 }
+
 const positions = ['top', 'right', 'bottom', 'left'];
+
 function getPositionedStyle(styles, style, suffix) {
   const result = {};
   suffix = suffix ? '-' + suffix : '';
@@ -2073,7 +2271,9 @@ function getPositionedStyle(styles, style, suffix) {
   result.height = result.top + result.bottom;
   return result;
 }
+
 const useOffsetPos = (x, y, target) => (x > 0 || y > 0) && (!target || !target.shadowRoot);
+
 function getCanvasPosition(e, canvas) {
   const touches = e.touches;
   const source = touches && touches.length ? touches[0] : e;
@@ -2091,6 +2291,7 @@ function getCanvasPosition(e, canvas) {
   }
   return {x, y, box};
 }
+
 function getRelativePosition(evt, chart) {
   if ('native' in evt) {
     return evt;
@@ -2113,6 +2314,7 @@ function getRelativePosition(evt, chart) {
     y: Math.round((y - yOffset) / height * canvas.height / currentDevicePixelRatio)
   };
 }
+
 function getContainerSize(canvas, width, height) {
   let maxWidth, maxHeight;
   if (width === undefined || height === undefined) {
@@ -2138,7 +2340,9 @@ function getContainerSize(canvas, width, height) {
     maxHeight: maxHeight || INFINITY
   };
 }
+
 const round1 = v => Math.round(v * 10) / 10;
+
 function getMaximumSize(canvas, bbWidth, bbHeight, aspectRatio) {
   const style = getComputedStyle(canvas);
   const margins = getPositionedStyle(style, 'margin');
@@ -2164,6 +2368,7 @@ function getMaximumSize(canvas, bbWidth, bbHeight, aspectRatio) {
     height
   };
 }
+
 function retinaScale(chart, forceRatio, forceStyle) {
   const pixelRatio = forceRatio || 1;
   const deviceHeight = Math.floor(chart.height * pixelRatio);
@@ -2176,8 +2381,8 @@ function retinaScale(chart, forceRatio, forceStyle) {
     canvas.style.width = `${chart.width}px`;
   }
   if (chart.currentDevicePixelRatio !== pixelRatio
-      || canvas.height !== deviceHeight
-      || canvas.width !== deviceWidth) {
+    || canvas.height !== deviceHeight
+    || canvas.width !== deviceWidth) {
     chart.currentDevicePixelRatio = pixelRatio;
     canvas.height = deviceHeight;
     canvas.width = deviceWidth;
@@ -2186,7 +2391,8 @@ function retinaScale(chart, forceRatio, forceStyle) {
   }
   return false;
 }
-const supportsEventListenerOptions = (function() {
+
+const supportsEventListenerOptions = (function () {
   let passiveSupported = false;
   try {
     const options = {
@@ -2201,6 +2407,7 @@ const supportsEventListenerOptions = (function() {
   }
   return passiveSupported;
 }());
+
 function readUsedSize(element, property) {
   const value = getStyle(element, property);
   const matches = value && value.match(/^(\d+)(\.\d+)?px$/);
@@ -2213,14 +2420,16 @@ function _pointInLine(p1, p2, t, mode) {
     y: p1.y + t * (p2.y - p1.y)
   };
 }
+
 function _steppedInterpolation(p1, p2, t, mode) {
   return {
     x: p1.x + t * (p2.x - p1.x),
     y: mode === 'middle' ? t < 0.5 ? p1.y : p2.y
-    : mode === 'after' ? t < 1 ? p1.y : p2.y
-    : t > 0 ? p2.y : p1.y
+      : mode === 'after' ? t < 1 ? p1.y : p2.y
+        : t > 0 ? p2.y : p1.y
   };
 }
+
 function _bezierInterpolation(p1, p2, t, mode) {
   const cp1 = {x: p1.cp2x, y: p1.cp2y};
   const cp2 = {x: p2.cp1x, y: p2.cp1y};
@@ -2233,6 +2442,7 @@ function _bezierInterpolation(p1, p2, t, mode) {
 }
 
 const intlCache = new Map();
+
 function getNumberFormat(locale, options) {
   options = options || {};
   const cacheKey = locale + JSON.stringify(options);
@@ -2243,11 +2453,12 @@ function getNumberFormat(locale, options) {
   }
   return formatter;
 }
+
 function formatNumber(num, locale, options) {
   return getNumberFormat(locale, options).format(num);
 }
 
-const getRightToLeftAdapter = function(rectX, width) {
+const getRightToLeftAdapter = function (rectX, width) {
   return {
     x(x) {
       return rectX + rectX + width - x;
@@ -2269,7 +2480,7 @@ const getRightToLeftAdapter = function(rectX, width) {
     },
   };
 };
-const getLeftToRightAdapter = function() {
+const getLeftToRightAdapter = function () {
   return {
     x(x) {
       return x;
@@ -2287,9 +2498,11 @@ const getLeftToRightAdapter = function() {
     },
   };
 };
+
 function getRtlAdapter(rtl, rectX, width) {
   return rtl ? getRightToLeftAdapter(rectX, width) : getLeftToRightAdapter();
 }
+
 function overrideTextDirection(ctx, direction) {
   let style, original;
   if (direction === 'ltr' || direction === 'rtl') {
@@ -2302,6 +2515,7 @@ function overrideTextDirection(ctx, direction) {
     ctx.prevTextDirection = original;
   }
 }
+
 function restoreTextDirection(ctx, original) {
   if (original !== undefined) {
     delete ctx.prevTextDirection;
@@ -2323,6 +2537,7 @@ function propertyFn(property) {
     normalize: x => x
   };
 }
+
 function normalizeSegment({start, end, count, loop, style}) {
   return {
     start: start % count,
@@ -2331,6 +2546,7 @@ function normalizeSegment({start, end, count, loop, style}) {
     style
   };
 }
+
 function getSegment(segment, points, bounds) {
   const {property, start: startBound, end: endBound} = bounds;
   const {between, normalize} = propertyFn(property);
@@ -2355,6 +2571,7 @@ function getSegment(segment, points, bounds) {
   }
   return {start, end, loop, style: segment.style};
 }
+
 function _boundSegment(segment, points, bounds) {
   if (!bounds) {
     return [segment];
@@ -2396,6 +2613,7 @@ function _boundSegment(segment, points, bounds) {
   }
   return result;
 }
+
 function _boundSegments(line, bounds) {
   const result = [];
   const segments = line.segments;
@@ -2407,6 +2625,7 @@ function _boundSegments(line, bounds) {
   }
   return result;
 }
+
 function findStartAndEnd(points, count, loop, spanGaps) {
   let start = 0;
   let end = count - 1;
@@ -2428,6 +2647,7 @@ function findStartAndEnd(points, count, loop, spanGaps) {
   end %= count;
   return {start, end};
 }
+
 function solidSegments(points, start, max, loop) {
   const count = points.length;
   const result = [];
@@ -2455,6 +2675,7 @@ function solidSegments(points, start, max, loop) {
   }
   return result;
 }
+
 function _computeSegments(line, segmentOptions) {
   const points = line.points;
   const spanGaps = line.options.spanGaps;
@@ -2471,12 +2692,14 @@ function _computeSegments(line, segmentOptions) {
   const completeLoop = !!line._fullLoop && start === 0 && end === count - 1;
   return splitByStyles(line, solidSegments(points, start, max, completeLoop), points, segmentOptions);
 }
+
 function splitByStyles(line, segments, points, segmentOptions) {
   if (!segmentOptions || !segmentOptions.setContext || !points) {
     return segments;
   }
   return doSplitByStyles(line, segments, points, segmentOptions);
 }
+
 function doSplitByStyles(line, segments, points, segmentOptions) {
   const chartContext = line._chart.getContext();
   const baseStyle = readStyle(line.options);
@@ -2486,6 +2709,7 @@ function doSplitByStyles(line, segments, points, segmentOptions) {
   let prevStyle = baseStyle;
   let start = segments[0].start;
   let i = start;
+
   function addStyle(s, e, l, st) {
     const dir = spanGaps ? -1 : 1;
     if (s === e) {
@@ -2504,6 +2728,7 @@ function doSplitByStyles(line, segments, points, segmentOptions) {
       start = e % count;
     }
   }
+
   for (const segment of segments) {
     start = spanGaps ? start : segment.start;
     let prev = points[start % count];
@@ -2530,6 +2755,7 @@ function doSplitByStyles(line, segments, points, segmentOptions) {
   }
   return result;
 }
+
 function readStyle(options) {
   return {
     backgroundColor: options.backgroundColor,
@@ -2541,8 +2767,130 @@ function readStyle(options) {
     borderColor: options.borderColor
   };
 }
+
 function styleChanged(style, prevStyle) {
   return prevStyle && JSON.stringify(style) !== JSON.stringify(prevStyle);
 }
 
-export { toFont as $, _rlookupByKey as A, _isPointInArea as B, getAngleFromPoint as C, toPadding as D, each as E, getMaximumSize as F, _getParentNode as G, HALF_PI as H, readUsedSize as I, throttled as J, supportsEventListenerOptions as K, _isDomSupported as L, log10 as M, _factorize as N, finiteOrDefault as O, PI as P, callback as Q, _addGrace as R, toDegrees as S, TAU as T, _measureText as U, _int16Range as V, _alignPixel as W, clipArea as X, renderText as Y, unclipArea as Z, _arrayUnique as _, resolve as a, QUARTER_PI as a$, _toLeftRightCenter as a0, _alignStartEnd as a1, overrides as a2, merge as a3, _capitalize as a4, descriptors as a5, isFunction as a6, _attachContext as a7, _createResolver as a8, _descriptors as a9, _textX as aA, restoreTextDirection as aB, noop as aC, distanceBetweenPoints as aD, _setMinAndMaxByKey as aE, niceNum as aF, almostWhole as aG, almostEquals as aH, _decimalPlaces as aI, _longestText as aJ, _filterBetween as aK, _lookup as aL, isPatternOrGradient as aM, getHoverColor as aN, clone$1 as aO, _merger as aP, _mergerIf as aQ, _deprecated as aR, toFontString as aS, splineCurve as aT, splineCurveMonotone as aU, getStyle as aV, fontString as aW, toLineHeight as aX, PITAU as aY, INFINITY as aZ, RAD_PER_DEG as a_, mergeIf as aa, uid as ab, debounce as ac, retinaScale as ad, clearCanvas as ae, setsEqual as af, _elementsEqual as ag, _isClickEvent as ah, _isBetween as ai, _readValueToProps as aj, _updateBezierControlPoints as ak, _computeSegments as al, _boundSegments as am, _steppedInterpolation as an, _bezierInterpolation as ao, _pointInLine as ap, _steppedLineTo as aq, _bezierCurveTo as ar, drawPoint as as, addRoundedRectPath as at, toTRBL as au, toTRBLCorners as av, _boundSegment as aw, _normalizeAngle as ax, getRtlAdapter as ay, overrideTextDirection as az, isArray as b, TWO_THIRDS_PI as b0, _angleDiff as b1, color as c, defaults as d, effects as e, resolveObjectKey as f, isNumberFinite as g, createContext as h, isObject as i, defined as j, isNullOrUndef as k, listenArrayEvents as l, toPercentage as m, toDimension as n, formatNumber as o, _angleBetween as p, isNumber as q, requestAnimFrame as r, sign as s, toRadians as t, unlistenArrayEvents as u, valueOrDefault as v, _limitValue as w, _lookupByKey as x, _parseObjectDataRadialScale as y, getRelativePosition as z };
+export {
+  toFont as $,
+  _rlookupByKey as A,
+  _isPointInArea as B,
+  getAngleFromPoint as C,
+  toPadding as D,
+  each as E,
+  getMaximumSize as F,
+  _getParentNode as G,
+  HALF_PI as H,
+  readUsedSize as I,
+  throttled as J,
+  supportsEventListenerOptions as K,
+  _isDomSupported as L,
+  log10 as M,
+  _factorize as N,
+  finiteOrDefault as O,
+  PI as P,
+  callback as Q,
+  _addGrace as R,
+  toDegrees as S,
+  TAU as T,
+  _measureText as U,
+  _int16Range as V,
+  _alignPixel as W,
+  clipArea as X,
+  renderText as Y,
+  unclipArea as Z,
+  _arrayUnique as _,
+  resolve as a,
+  QUARTER_PI as a$,
+  _toLeftRightCenter as a0,
+  _alignStartEnd as a1,
+  overrides as a2,
+  merge as a3,
+  _capitalize as a4,
+  descriptors as a5,
+  isFunction as a6,
+  _attachContext as a7,
+  _createResolver as a8,
+  _descriptors as a9,
+  _textX as aA,
+  restoreTextDirection as aB,
+  noop as aC,
+  distanceBetweenPoints as aD,
+  _setMinAndMaxByKey as aE,
+  niceNum as aF,
+  almostWhole as aG,
+  almostEquals as aH,
+  _decimalPlaces as aI,
+  _longestText as aJ,
+  _filterBetween as aK,
+  _lookup as aL,
+  isPatternOrGradient as aM,
+  getHoverColor as aN,
+  clone$1 as aO,
+  _merger as aP,
+  _mergerIf as aQ,
+  _deprecated as aR,
+  toFontString as aS,
+  splineCurve as aT,
+  splineCurveMonotone as aU,
+  getStyle as aV,
+  fontString as aW,
+  toLineHeight as aX,
+  PITAU as aY,
+  INFINITY as aZ,
+  RAD_PER_DEG as a_,
+  mergeIf as aa,
+  uid as ab,
+  debounce as ac,
+  retinaScale as ad,
+  clearCanvas as ae,
+  setsEqual as af,
+  _elementsEqual as ag,
+  _isClickEvent as ah,
+  _isBetween as ai,
+  _readValueToProps as aj,
+  _updateBezierControlPoints as ak,
+  _computeSegments as al,
+  _boundSegments as am,
+  _steppedInterpolation as an,
+  _bezierInterpolation as ao,
+  _pointInLine as ap,
+  _steppedLineTo as aq,
+  _bezierCurveTo as ar,
+  drawPoint as as,
+  addRoundedRectPath as at,
+  toTRBL as au,
+  toTRBLCorners as av,
+  _boundSegment as aw,
+  _normalizeAngle as ax,
+  getRtlAdapter as ay,
+  overrideTextDirection as az,
+  isArray as b,
+  TWO_THIRDS_PI as b0,
+  _angleDiff as b1,
+  color as c,
+  defaults as d,
+  effects as e,
+  resolveObjectKey as f,
+  isNumberFinite as g,
+  createContext as h,
+  isObject as i,
+  defined as j,
+  isNullOrUndef as k,
+  listenArrayEvents as l,
+  toPercentage as m,
+  toDimension as n,
+  formatNumber as o,
+  _angleBetween as p,
+  isNumber as q,
+  requestAnimFrame as r,
+  sign as s,
+  toRadians as t,
+  unlistenArrayEvents as u,
+  valueOrDefault as v,
+  _limitValue as w,
+  _lookupByKey as x,
+  _parseObjectDataRadialScale as y,
+  getRelativePosition as z
+};
